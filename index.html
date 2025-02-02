@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic tac toe</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: aliceblue;
+        }
+        .title{
+            text-align: center;
+        }
+        .current-player{
+            text-align: center;
+        }
+        .board{
+            margin: 50px auto;
+            width: fit-content;
+            box-shadow: 0 0 10px 5px rgb(255, 57, 57);
+            padding: 5px;
+        }
+        .row{
+            display: flex;
+        }
+        .box{
+            height: 100px;
+            width: 100px;
+            margin: 5px;
+            background-color: aqua;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .box:hover {
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 5px 2px black;
+        }
+    </style>
+  </head>
+  <body>
+    <h1 class="title">Tic Tac Toe</h1>
+    <p class="current-player">Current Player: <span id="current-player">X</span></p>
+
+    <div class="board">
+      <div class="row">
+        <div class="box" onclick="selectBox(0)">1</div>
+        <div class="box" onclick="selectBox(1)">2</div>
+        <div class="box" onclick="selectBox(2)">3</div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="selectBox(3)">4</div>
+        <div class="box" onclick="selectBox(4)">5</div>
+        <div class="box" onclick="selectBox(5)">6</div>
+      </div>
+      <div class="row">
+        <div class="box" onclick="selectBox(6)">7</div>
+        <div class="box" onclick="selectBox(7)">8</div>
+        <div class="box" onclick="selectBox(8)">9</div>
+      </div>
+    </div>
+    <script>
+        const Board = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+        let currentPlayer = 'X';
+
+        function renderBoard(){
+            const allBoxes = document.querySelectorAll(" .box");
+            console.log(allBoxes);
+            allBoxes.forEach((boxElement, i)=>{
+                if(Board[i]==='X'){
+                    boxElement.innerHTML = '<img src="player2.png" height="65px"/>';
+                }
+                else if(Board[i]=== "O"){
+                    boxElement.innerHTML = '<img src="player1.png" height="65px"/>';
+                }
+                else{
+                    boxElement.innerHTML = " ";
+                }
+            })
+        }
+        renderBoard();
+        function selectBox(BoxNumber){
+            if(Board[BoxNumber]!== -1){
+                alert("Invalid Move");
+                return ;
+            }
+            Board[BoxNumber]= currentPlayer;
+            if(currentPlayer==="X"){
+                currentPlayer="O"
+            }
+            else{
+                currentPlayer="X";
+            }
+            const currentPlayerElement = document.getElementById('current-player');
+            currentPlayerElement.innerText = currentPlayer;
+            renderBoard();
+        }
+    </script>
+  </body>
+</html>
