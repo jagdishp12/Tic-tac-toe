@@ -4,48 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic tac toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            margin: 0px;
-            padding: 0px;
-            background-color: aliceblue;
-        }
-        .title{
-            text-align: center;
-        }
-        .current-player{
-            text-align: center;
-        }
-        .board{
-            margin: 50px auto;
-            width: fit-content;
-            box-shadow: 0 0 10px 5px rgb(255, 57, 57);
-            padding: 5px;
-        }
-        .row{
-            display: flex;
-        }
-        .box{
-            height: 100px;
-            width: 100px;
-            margin: 5px;
-            background-color: aqua;
-            color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-        .box:hover {
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 0 5px 2px black;
-        }
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color: aliceblue;
+        font-family: "Dancing Script", cursive;
+        font-weight: bold;
+      }
+      .title {
+        text-align: center;
+      }
+      .current-player {
+        text-align: center;
+      }
+      .board {
+        margin: 50px auto;
+        width: fit-content;
+        box-shadow: 0 0 10px 5px rgb(255, 57, 57);
+        padding: 5px;
+      }
+      .row {
+        display: flex;
+      }
+      .box {
+        height: 100px;
+        width: 100px;
+        margin: 5px;
+        background-color: aqua;
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .box:hover {
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 0 5px 2px black;
+      }
+      .reset-btn {
+        display: block;
+        margin: 35px auto;
+        height: 40px;
+        width: 150px;
+        background-color: rgb(255, 57, 57);
+        border-radius: 15px;
+        font-family: "Dancing Script", cursive;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <h1 class="title">Tic Tac Toe</h1>
-    <p class="current-player">Current Player: <span id="current-player">X</span></p>
+    <p class="current-player">
+      Current Player: <span id="current-player">X</span>
+    </p>
 
     <div class="board">
       <div class="row">
@@ -66,41 +85,131 @@
     </div>
     <button class="reset-btn" onclick="ResetGame()">Reset Game</button>
     <script>
-        const Board = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
-        let currentPlayer = 'X';
+      const Board = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
+      let currentPlayer = "X";
 
-        function renderBoard(){
-            const allBoxes = document.querySelectorAll(" .box");
-            console.log(allBoxes);
-            allBoxes.forEach((boxElement, i)=>{
-                if(Board[i]==='X'){
-                    boxElement.innerHTML = '<img src="player2.png" height="65px"/>';
-                }
-                else if(Board[i]=== "O"){
-                    boxElement.innerHTML = '<img src="player1.png" height="65px"/>';
-                }
-                else{
-                    boxElement.innerHTML = " ";
-                }
-            })
+      function renderBoard() {
+        const allBoxes = document.querySelectorAll(".box");
+        console.log(allBoxes);
+        allBoxes.forEach((boxElement, i) => {
+          if (Board[i] === "X") {
+            boxElement.innerHTML = '<img src="player2.png" height="65px"/>';
+          } else if (Board[i] === "O") {
+            boxElement.innerHTML = '<img src="player1.png" height="65px"/>';
+          } else {
+            boxElement.innerHTML = " ";
+          }
+        });
+      }
+
+      renderBoard();
+
+      function selectBox(BoxNumber) {
+        if (Board[BoxNumber] !== -1) {
+          alert("Invalid Move");
+          return;
         }
+        Board[BoxNumber] = currentPlayer;
+        if (currentPlayer === "X") {
+          currentPlayer = "O";
+        } else {
+          currentPlayer = "X";
+        }
+        const currentPlayerElement = document.getElementById("current-player");
+        currentPlayerElement.innerText = currentPlayer;
         renderBoard();
-        function selectBox(BoxNumber){
-            if(Board[BoxNumber]!== -1){
-                alert("Invalid Move");
-                return ;
-            }
-            Board[BoxNumber]= currentPlayer;
-            if(currentPlayer==="X"){
-                currentPlayer="O"
-            }
-            else{
-                currentPlayer="X";
-            }
-            const currentPlayerElement = document.getElementById('current-player');
-            currentPlayerElement.innerText = currentPlayer;
-            renderBoard();
+        checkWinner();
+      }
+
+      function ResetGame() {
+        Board.fill(-1);
+        renderBoard();
+
+        currentPlayer = "X";
+        const currentPlayerElement = document.getElementById("current-player");
+        currentPlayerElement.innerText = currentPlayer;
+      }
+
+      function isPlayerPresent(places, player) {
+        const a = places[0];
+        const b = places[1];
+        const c = places[2];
+        if (Board[a] == player && Board[b] == player && Board[c] == player) {
+          return true;
+        } else {
+          return false;
         }
+
+      }
+      function checkWinner() {
+        if (isPlayerPresent([0, 1, 2], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([3, 4, 5], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([6, 7, 8], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([0, 4, 8], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([2, 4, 6], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([0, 3, 6], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([1, 4, 7], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([2, 5, 8], "X")) {
+          alert("Player X Wins!");
+          ResetGame();
+          return;
+        }
+
+        if (isPlayerPresent([0, 1, 2], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([3, 4, 5], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([6, 7, 8], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([0, 4, 8], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([2, 4, 6], "O")) {
+          alert("Player O  Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([0, 3, 6], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([1, 4, 7], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        } else if (isPlayerPresent([2, 5, 8], "O")) {
+          alert("Player O Wins!");
+          ResetGame();
+          return;
+        }
+      }
     </script>
   </body>
 </html>
