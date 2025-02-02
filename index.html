@@ -58,10 +58,20 @@
         font-family: "Dancing Script", cursive;
         font-weight: bold;
       }
+      .player-input {
+        text-align: center;
+        margin-bottom: 20px;
+      }
     </style>
   </head>
   <body>
     <h1 class="title">Tic Tac Toe</h1>
+    <div class="player-input">
+        <label for="playerX">Player X Name:</label>
+        <input type="text" id="playerX" placeholder="Enter Player X's Name" />
+        <label for="playerO">Player O Name:</label>
+        <input type="text" id="playerO" placeholder="Enter Player O's Name" />
+      </div>
     <p class="current-player">
       Current Player: <span id="current-player">X</span>
     </p>
@@ -88,6 +98,14 @@
       const Board = [-1, -1, -1, -1, -1, -1, -1, -1, -1];
       let currentPlayer = "X";
 
+      let playerXName = "";
+      let playerOName = "";
+
+      function getPlayerNames() {
+        playerXName = document.getElementById("playerX").value || "Player X";
+        playerOName = document.getElementById("playerO").value || "Player O";
+      }
+
       function renderBoard() {
         const allBoxes = document.querySelectorAll(".box");
         console.log(allBoxes);
@@ -105,6 +123,7 @@
       renderBoard();
 
       function selectBox(BoxNumber) {
+        getPlayerNames();
         if (Board[BoxNumber] !== -1) {
           alert("Invalid Move");
           return;
@@ -143,69 +162,69 @@
       }
       function checkWinner() {
         if (isPlayerPresent([0, 1, 2], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([3, 4, 5], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([6, 7, 8], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([0, 4, 8], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([2, 4, 6], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([0, 3, 6], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([1, 4, 7], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([2, 5, 8], "X")) {
-          alert("Player X Wins!");
+          alert(playerXName + " Wins!");
           ResetGame();
           return;
         }
 
         if (isPlayerPresent([0, 1, 2], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([3, 4, 5], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([6, 7, 8], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([0, 4, 8], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([2, 4, 6], "O")) {
-          alert("Player O  Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([0, 3, 6], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([1, 4, 7], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         } else if (isPlayerPresent([2, 5, 8], "O")) {
-          alert("Player O Wins!");
+          alert(playerOName + " Wins!");
           ResetGame();
           return;
         }
